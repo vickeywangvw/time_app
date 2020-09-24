@@ -1,0 +1,1615 @@
+vickeywang@LAPTOP-4BS0FVSB:~$ pwd
+/home/vickeywang
+vickeywang@LAPTOP-4BS0FVSB:~$ ls
+nyu-cs2262-001-fa20
+vickeywang@LAPTOP-4BS0FVSB:~$ ls
+nyu-cs2262-001-fa20
+vickeywang@LAPTOP-4BS0FVSB:~$ cd nyu-cs2262-001-fa20/
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ ls
+README.md  sample_time_app
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ cd sample_time_app/
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ls
+Dockerfile  LICENSE  README.md  run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ docker build -t ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ history | grep build
+   55  docker build -t vickeywang/sample-time-app:latest
+   57  docker build .
+  122  docker build -t vickeywang/sample-time-app:latest
+  140  history | grep build
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ docker build -t vickeywang/sample-time-app:latest
+"docker build" requires exactly 1 argument.
+See 'docker build --help'.
+
+Usage:  docker build [OPTIONS] PATH | URL | -
+
+Build an image from a Dockerfile
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ docker build -t vickeywang/sample-time-app:latest .
+Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo service start
+[sudo] password for vickeywang:
+start: unrecognized service
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo service start docker
+start: unrecognized service
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo service start^Cocker
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo service docker start
+ * Starting Docker: docker                                                                              [ OK ]
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ docker build -t vickeywang/sample-time-app:latest .
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.40/build?buildargs=%7B%7D&cachefrom=%5B%5D&cgroupparent=&cpuperiod=0&cpuquota=0&cpusetcpus=&cpusetmems=&cpushares=0&dockerfile=Dockerfile&labels=%7B%7D&memory=0&memswap=0&networkmode=default&rm=1&session=irk9mcry5h8funsc0dgsmwjop&shmsize=0&t=vickeywang%2Fsample-time-app%3Alatest&target=&ulimits=null&version=1: dial unix /var/run/docker.sock: connect: permission denied
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker build -t vickeywang/sample-time-app:latest .
+Sending build context to Docker daemon  7.168kB
+Step 1/8 : FROM python:3.5
+3.5: Pulling from library/python
+57df1a1f1ad8: Pull complete                                                                                    71e126169501: Pull complete                                                                                    1af28a55c3f3: Pull complete                                                                                    03f1c9932170: Pull complete                                                                                    65b3db15f518: Pull complete                                                                                    850581be87f3: Pull complete                                                                                    1e37775630ae: Pull complete                                                                                    7e054ca5fcba: Pull complete                                                                                    92a0fe226896: Pull complete                                                                                    Digest: sha256:42a37d6b8c00b186bdfb2b620fa8023eb775b3eb3a768fd3c2e421964eee9665
+Status: Downloaded newer image for python:3.5
+ ---> 3687eb5ea744
+Step 2/8 : RUN apt-get update   && apt-get clean   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ ---> Running in 4306a97e6737
+Get:1 http://deb.debian.org/debian buster InRelease [122 kB]
+Get:2 http://security.debian.org/debian-security buster/updates InRelease [65.4 kB]
+Get:3 http://deb.debian.org/debian buster-updates InRelease [51.9 kB]
+Get:4 http://security.debian.org/debian-security buster/updates/main amd64 Packages [231 kB]
+Get:5 http://deb.debian.org/debian buster/main amd64 Packages [7906 kB]
+Get:6 http://deb.debian.org/debian buster-updates/main amd64 Packages [7868 B]
+Fetched 8385 kB in 1s (5681 kB/s)
+Reading package lists...
+Removing intermediate container 4306a97e6737
+ ---> a7293267ed9e
+Step 3/8 : RUN groupadd -g 799 nyu &&     useradd -r -u 999 -g nyu nyu
+ ---> Running in 8de67eabf023
+Removing intermediate container 8de67eabf023
+ ---> 988585061597
+Step 4/8 : WORKDIR /app
+ ---> Running in 856dc8e86ed8
+Removing intermediate container 856dc8e86ed8
+ ---> bb117bcd5964
+Step 5/8 : RUN pip install Flask
+ ---> Running in fa729f97f572
+DEPRECATION: Python 3.5 reached the end of its life on September 13th, 2020. Please upgrade your Python as Python 3.5 is no longer maintained. pip 21.0 will drop support for Python 3.5 in January 2021. pip 21.0 will remove support for this functionality.
+Collecting Flask
+  Downloading Flask-1.1.2-py2.py3-none-any.whl (94 kB)
+Collecting itsdangerous>=0.24
+  Downloading itsdangerous-1.1.0-py2.py3-none-any.whl (16 kB)
+Collecting click>=5.1
+  Downloading click-7.1.2-py2.py3-none-any.whl (82 kB)
+Collecting Werkzeug>=0.15
+  Downloading Werkzeug-1.0.1-py2.py3-none-any.whl (298 kB)
+Collecting Jinja2>=2.10.1
+  Downloading Jinja2-2.11.2-py2.py3-none-any.whl (125 kB)
+Collecting MarkupSafe>=0.23
+  Downloading MarkupSafe-1.1.1-cp35-cp35m-manylinux1_x86_64.whl (27 kB)
+Installing collected packages: itsdangerous, click, Werkzeug, MarkupSafe, Jinja2, Flask
+Successfully installed Flask-1.1.2 Jinja2-2.11.2 MarkupSafe-1.1.1 Werkzeug-1.0.1 click-7.1.2 itsdangerous-1.1.0Removing intermediate container fa729f97f572
+ ---> bd1999f4210a
+Step 6/8 : USER nyu
+ ---> Running in 33d5f4ab730a
+Removing intermediate container 33d5f4ab730a
+ ---> 854cc5ba30a6
+Step 7/8 : COPY --chown=nyu:nyu . .
+ ---> 5d7302071acd
+Step 8/8 : CMD [ "python", "./run.py" ]
+ ---> Running in f39a377a7176
+Removing intermediate container f39a377a7176
+ ---> eb9ece2ee416
+Successfully built eb9ece2ee416
+Successfully tagged vickeywang/sample-time-app:latest
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it sample-time-app
+Unable to find image 'sample-time-app:latest' locally
+docker: Error response from daemon: pull access denied for sample-time-app, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
+See 'docker run --help'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+
+
+
+
+
+
+/time
+
+/vickeywang/path
+sudo /path
+stat
+^C^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it sample-time-app^C-time-app
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ less
+Missing filename ("less --help" for help)
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ls
+Dockerfile  LICENSE  README.md  run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ less run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ less run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+docker: Error response from daemon: Conflict. The container name "/sample-time-app" is already in use by container "59c1b0856f75e68cca308d1b0952ea86bbbc82874c161db2becfd1e71f54c530". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm "59c1b0856f75e68cca308d1b0952ea86bbbc82874c161db2becfd1e71f54c530"
+59c1b0856f75e68cca308d1b0952ea86bbbc82874c161db2becfd1e71f54c530
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 22:54:00] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 22:54:01] "GET /favicon.ico HTTP/1.1" 404 -
+^Cvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm "59c1b0856f75e68cca308d1b0952ea86bbbc82874c161db2becfd1e71f54c530"
+Error: No such container: 59c1b0856f75e68cca308d1b0952ea86bbbc82874c161db2becfd1e71f54c530
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ less
+Missing filename ("less --help" for help)
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ls
+Dockerfile  LICENSE  README.md  run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+docker: Error response from daemon: Conflict. The container name "/sample-time-app" is already in use by container "bdfe3c835b6fb27a602ad490a2022498de587c158f9ffafd6b1f397e2403b13e". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm "bdfe3c835b6fb27a602ad490a2022498de587c158f9ffafd6b1f397e2403b13e".
+Error: No such container: bdfe3c835b6fb27a602ad490a2022498de587c158f9ffafd6b1f397e2403b13e.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm "bdfe3c835b6fb27a602ad490a2022498de587c158f9ffafd6b1f397e2403b13e"
+bdfe3c835b6fb27a602ad490a2022498de587c158f9ffafd6b1f397e2403b13e
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run -d --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+e41b2885025ea37301359db055e3701b39c8b9e7396231364f9f6d2baafa2802
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm e41b2885025ea37301359db055e3701b39c8b9e7396231364f9f6d2baafa2802
+Error response from daemon: You cannot remove a running container e41b2885025ea37301359db055e3701b39c8b9e7396231364f9f6d2baafa2802. Stop the container before attempting removal or force remove
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker stop "bdfe3c835b6fb27a602ad490a2022498de587c158f9ffafd6b1f397e2403b13e"
+Error response from daemon: No such container: bdfe3c835b6fb27a602ad490a2022498de587c158f9ffafd6b1f397e2403b13e
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker stop e41b2885025ea37301359db055e3701b39c8b9e7396231364f9f6d2baafa2802
+e41b2885025ea37301359db055e3701b39c8b9e7396231364f9f6d2baafa2802
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm e41b2885025ea37301359db055e3701b39c8b9e7396231364f9f6d2baafa2802
+e41b2885025ea37301359db055e3701b39c8b9e7396231364f9f6d2baafa2802
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 22:58:51] "GET / HTTP/1.1" 200 -
+
+
+
+^Cvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ less run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+docker: Error response from daemon: Conflict. The container name "/sample-time-app" is already in use by container "3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ docker rm "3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd".
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Delete http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd.: dial unix /var/run/docker.sock: connect: permission denied
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ docker rm "3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd".
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Delete http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd.: dial unix /var/run/docker.sock: connect: permission denied
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm "3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd".
+Error: No such container: 3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+docker: Error response from daemon: Conflict. The container name "/sample-time-app" is already in use by container "3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm  "3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd".
+Error: No such container: 3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm  3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd
+3381a19d06492cb84d2d8a4452f1937b660a33457bf2eff875221130ded408dd
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:10:06] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:10:13] "GET /path HTTP/1.1" 404 -
+172.17.0.1 - - [23/Sep/2020 23:10:34] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:10:40] "GET /time HTTP/1.1" 404 -
+^Cvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ nano run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ nano run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ nano run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+docker: Error response from daemon: Conflict. The container name "/sample-time-app" is already in use by container "ae64eac4b3b4cb7c3cb1f6f81182d95b02477e866f0f559d0e451d80afcd1883". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm ae64eac4b3b4cb7c3cb1f6f81182d95b02477e866f0f559d0e451d80afcd1883
+ae64eac4b3b4cb7c3cb1f6f81182d95b02477e866f0f559d0e451d80afcd1883
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:24:25] "GET /path HTTP/1.1" 404 -
+^Cvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ nano run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+docker: Error response from daemon: Conflict. The container name "/sample-time-app" is already in use by container "2d9b91d423364f02df6f5a4a870b28b5e86b39f9c5393c998ecd921d2c9cf21c". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm 2d9b91d423364f02df6f5a4a870b28b5e86b39f9c5393c998ecd921d2c9cf21c
+2d9b91d423364f02df6f5a4a870b28b5e86b39f9c5393c998ecd921d2c9cf21c
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:33:50] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:33:59] "GET /path HTTP/1.1" 404 -
+172.17.0.1 - - [23/Sep/2020 23:34:04] "GET /time HTTP/1.1" 404 -
+^Cvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ nano run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+docker: Error response from daemon: Conflict. The container name "/sample-time-app" is already in use by container "0eb34040ec2cd1e489d86f500f3551e7be21470dee87bbe60fddb5e058a3a248". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm 2d9b91d423364f02df6f5a4a870b28b5e86b39f9c5393c998ecd921d2c9cf21c
+Error: No such container: 2d9b91d423364f02df6f5a4a870b28b5e86b39f9c5393c998ecd921d2c9cf21c
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+docker: Error response from daemon: Conflict. The container name "/sample-time-app" is already in use by container "0eb34040ec2cd1e489d86f500f3551e7be21470dee87bbe60fddb5e058a3a248". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ pwd
+/home/vickeywang/nyu-cs2262-001-fa20/sample_time_app
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ls
+Dockerfile  LICENSE  README.md  run.py  run.pymmmmmmmmmmmmm-bmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmb
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ rm run.pymmmmmmmmmmmmm-bmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmb
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   run.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git checkout
+M       sample_time_app/run.py
+Your branch is up to date with 'origin/master'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ less run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ python run.py
+
+Command 'python' not found, did you mean:
+
+  command 'python3' from deb python3
+  command 'python' from deb python-is-python3
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+docker: Error response from daemon: Conflict. The container name "/sample-time-app" is already in use by container "0eb34040ec2cd1e489d86f500f3551e7be21470dee87bbe60fddb5e058a3a248". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker^Cun --name sample-time-app -p 8080:8080 -it vickeywang/sample-time-app
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm 2d9b91d423364f02df6f5a4a870b28b5e86b39f9c5393c998ecd921d2c9cf21c
+Error: No such container: 2d9b91d423364f02df6f5a4a870b28b5e86b39f9c5393c998ecd921d2c9cf21c
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker rm "0eb34040ec2cd1e489d86f500f3551e7be21470dee87bbe60fddb5e058a3a248"
+0eb34040ec2cd1e489d86f500f3551e7be21470dee87bbe60fddb5e058a3a248
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:43:17] "GET / HTTP/1.1" 200 -
+^Z^C^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -d -p 8080:8080 -it vickeywang/sample-time-app
+2a266ffbdf3fc24ae5af03eb45e4fbd602d968ea78e0b31c59bb0cfa5ad82846
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker stop 2a266ffbdf3fc24ae5af03eb45e4fbd602d968ea78e0b31c59bb0cfa5ad82846
+2a266ffbdf3fc24ae5af03eb45e4fbd602d968ea78e0b31c59bb0cfa5ad82846
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:46:04] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:46:05] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:46:15] "GET /path HTTP/1.1" 404 -
+172.17.0.1 - - [23/Sep/2020 23:46:19] "GET / HTTP/1.1" 200 -
+^C^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+^Cvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:47:31] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:47:32] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:47:32] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:47:32] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:47:35] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:47:41] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:48:00] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:48:31] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:48:31] "GET /favicon.ico HTTP/1.1" 404 -
+^C^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker build -t vickeywang/sample-time-app:latest .
+Sending build context to Docker daemon  7.168kB
+Step 1/8 : FROM python:3.5
+ ---> 3687eb5ea744
+Step 2/8 : RUN apt-get update   && apt-get clean   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ ---> Using cache
+ ---> a7293267ed9e
+Step 3/8 : RUN groupadd -g 799 nyu &&     useradd -r -u 999 -g nyu nyu
+ ---> Using cache
+ ---> 988585061597
+Step 4/8 : WORKDIR /app
+ ---> Using cache
+ ---> bb117bcd5964
+Step 5/8 : RUN pip install Flask
+ ---> Using cache
+ ---> bd1999f4210a
+Step 6/8 : USER nyu
+ ---> Using cache
+ ---> 854cc5ba30a6
+Step 7/8 : COPY --chown=nyu:nyu . .
+ ---> 674231360908
+Step 8/8 : CMD [ "python", "./run.py" ]
+ ---> Running in d0958e8c3aea
+Removing intermediate container d0958e8c3aea
+ ---> 516a022dd258
+Successfully built 516a022dd258
+Successfully tagged vickeywang/sample-time-app:latest
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+  File "./run.py", line 7
+    print 'abc'
+              ^
+SyntaxError: Missing parentheses in call to 'print'
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker build -t vickeywang/sample-time-app:latest .
+Sending build context to Docker daemon  7.168kB
+Step 1/8 : FROM python:3.5
+ ---> 3687eb5ea744
+Step 2/8 : RUN apt-get update   && apt-get clean   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ ---> Using cache
+ ---> a7293267ed9e
+Step 3/8 : RUN groupadd -g 799 nyu &&     useradd -r -u 999 -g nyu nyu
+ ---> Using cache
+ ---> 988585061597
+Step 4/8 : WORKDIR /app
+ ---> Using cache
+ ---> bb117bcd5964
+Step 5/8 : RUN pip install Flask
+ ---> Using cache
+ ---> bd1999f4210a
+Step 6/8 : USER nyu
+ ---> Using cache
+ ---> 854cc5ba30a6
+Step 7/8 : COPY --chown=nyu:nyu . .
+ ---> 98a063463117
+Step 8/8 : CMD [ "python", "./run.py" ]
+ ---> Running in 0c7314969e65
+Removing intermediate container 0c7314969e65
+ ---> 7274d9e543a8
+Successfully built 7274d9e543a8
+Successfully tagged vickeywang/sample-time-app:latest
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:49:21] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:25] "GET /path HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: path() got an unexpected keyword argument 'path'
+172.17.0.1 - - [23/Sep/2020 23:49:25] "GET /path?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:25] "GET /path?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:25] "GET /path?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:25] "GET /path?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:25] "GET /path?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:25] "GET /path?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:43] "GET /%3Cpath%3E HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+TypeError: path() got an unexpected keyword argument 'path'
+172.17.0.1 - - [23/Sep/2020 23:49:43] "GET /%3Cpath%3E?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:43] "GET /%3Cpath%3E?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:43] "GET /%3Cpath%3E?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:43] "GET /%3Cpath%3E?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:43] "GET /%3Cpath%3E?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:49:43] "GET /%3Cpath%3E?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+^C^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker build -t vickeywang/sample-time-app:latest .
+Sending build context to Docker daemon  7.168kB
+Step 1/8 : FROM python:3.5
+ ---> 3687eb5ea744
+Step 2/8 : RUN apt-get update   && apt-get clean   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ ---> Using cache
+ ---> a7293267ed9e
+Step 3/8 : RUN groupadd -g 799 nyu &&     useradd -r -u 999 -g nyu nyu
+ ---> Using cache
+ ---> 988585061597
+Step 4/8 : WORKDIR /app
+ ---> Using cache
+ ---> bb117bcd5964
+Step 5/8 : RUN pip install Flask
+ ---> Using cache
+ ---> bd1999f4210a
+Step 6/8 : USER nyu
+ ---> Using cache
+ ---> 854cc5ba30a6
+Step 7/8 : COPY --chown=nyu:nyu . .
+ ---> 8b735e88f024
+Step 8/8 : CMD [ "python", "./run.py" ]
+ ---> Running in 48d9e1b4252b
+Removing intermediate container 48d9e1b4252b
+ ---> dee41ae00cbd
+Successfully built dee41ae00cbd
+Successfully tagged vickeywang/sample-time-app:latest
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:50:15] "GET /%3Cpath%3E HTTP/1.1" 404 -
+172.17.0.1 - - [23/Sep/2020 23:50:19] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:50:22] "GET /path HTTP/1.1" 200 -
+^C^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker build -t vickeywang/sample-time-app:latest .
+Sending build context to Docker daemon  7.168kB
+Step 1/8 : FROM python:3.5
+ ---> 3687eb5ea744
+Step 2/8 : RUN apt-get update   && apt-get clean   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ ---> Using cache
+ ---> a7293267ed9e
+Step 3/8 : RUN groupadd -g 799 nyu &&     useradd -r -u 999 -g nyu nyu
+ ---> Using cache
+ ---> 988585061597
+Step 4/8 : WORKDIR /app
+ ---> Using cache
+ ---> bb117bcd5964
+Step 5/8 : RUN pip install Flask
+ ---> Using cache
+ ---> bd1999f4210a
+Step 6/8 : USER nyu
+ ---> Using cache
+ ---> 854cc5ba30a6
+Step 7/8 : COPY --chown=nyu:nyu . .
+ ---> 32b3ef48047c
+Step 8/8 : CMD [ "python", "./run.py" ]
+ ---> Running in fe53cbd39b70
+Removing intermediate container fe53cbd39b70
+ ---> 4567e02e70a7
+Successfully built 4567e02e70a7
+Successfully tagged vickeywang/sample-time-app:latest
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:50:59] "GET /path HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1953, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1968, in finalize_request
+    response = self.make_response(rv)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2131, in make_response
+    " {rv.__class__.__name__}.".format(rv=rv)
+TypeError: The view function did not return a valid response. The return type must be a string, dict, tuple, Response instance, or WSGI callable, but it was a float.
+172.17.0.1 - - [23/Sep/2020 23:50:59] "GET /path?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:50:59] "GET /path?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:50:59] "GET /path?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:50:59] "GET /path?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:50:59] "GET /path?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:50:59] "GET /path?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+^C^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker build -t vickeywang/sample-time-app:latest .
+Sending build context to Docker daemon  7.168kB
+Step 1/8 : FROM python:3.5
+ ---> 3687eb5ea744
+Step 2/8 : RUN apt-get update   && apt-get clean   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ ---> Using cache
+ ---> a7293267ed9e
+Step 3/8 : RUN groupadd -g 799 nyu &&     useradd -r -u 999 -g nyu nyu
+ ---> Using cache
+ ---> 988585061597
+Step 4/8 : WORKDIR /app
+ ---> Using cache
+ ---> bb117bcd5964
+Step 5/8 : RUN pip install Flask
+ ---> Using cache
+ ---> bd1999f4210a
+Step 6/8 : USER nyu
+ ---> Using cache
+ ---> 854cc5ba30a6
+Step 7/8 : COPY --chown=nyu:nyu . .
+ ---> b60fd08a2f26
+Step 8/8 : CMD [ "python", "./run.py" ]
+ ---> Running in 804e4a3eb993
+Removing intermediate container 804e4a3eb993
+ ---> 92d1e08a9292
+Successfully built 92d1e08a9292
+Successfully tagged vickeywang/sample-time-app:latest
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ vim run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:51:37] "GET /path HTTP/1.1" 200 -
+^Cvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ nano run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker build -t vickeywang/sample-time-app:latest .
+Sending build context to Docker daemon  7.168kB
+Step 1/8 : FROM python:3.5
+ ---> 3687eb5ea744
+Step 2/8 : RUN apt-get update   && apt-get clean   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ ---> Using cache
+ ---> a7293267ed9e
+Step 3/8 : RUN groupadd -g 799 nyu &&     useradd -r -u 999 -g nyu nyu
+ ---> Using cache
+ ---> 988585061597
+Step 4/8 : WORKDIR /app
+ ---> Using cache
+ ---> bb117bcd5964
+Step 5/8 : RUN pip install Flask
+ ---> Using cache
+ ---> bd1999f4210a
+Step 6/8 : USER nyu
+ ---> Using cache
+ ---> 854cc5ba30a6
+Step 7/8 : COPY --chown=nyu:nyu . .
+ ---> 2040bacf0347
+Step 8/8 : CMD [ "python", "./run.py" ]
+ ---> Running in 0233644b10e4
+Removing intermediate container 0233644b10e4
+ ---> 995ee4ba62ef
+Successfully built 995ee4ba62ef
+Successfully tagged vickeywang/sample-time-app:latest
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [23/Sep/2020 23:55:19] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:55:24] "GET /path HTTP/1.1" 500 -
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.5/site-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.5/site-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/app/run.py", line 7, in path
+    return str(time.String())
+AttributeError: module 'time' has no attribute 'String'
+172.17.0.1 - - [23/Sep/2020 23:55:24] "GET /path?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:55:24] "GET /path?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:55:24] "GET /path?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:55:24] "GET /path?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:55:24] "GET /path?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+172.17.0.1 - - [23/Sep/2020 23:55:24] "GET /path?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+^Z
+^Cvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ nano run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker build -t vickeywang/sample-time-app:latest .
+Sending build context to Docker daemon  7.168kB
+Step 1/8 : FROM python:3.5
+ ---> 3687eb5ea744
+Step 2/8 : RUN apt-get update   && apt-get clean   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ ---> Using cache
+ ---> a7293267ed9e
+Step 3/8 : RUN groupadd -g 799 nyu &&     useradd -r -u 999 -g nyu nyu
+ ---> Using cache
+ ---> 988585061597
+Step 4/8 : WORKDIR /app
+ ---> Using cache
+ ---> bb117bcd5964
+Step 5/8 : RUN pip install Flask
+ ---> Using cache
+ ---> bd1999f4210a
+Step 6/8 : USER nyu
+ ---> Using cache
+ ---> 854cc5ba30a6
+Step 7/8 : COPY --chown=nyu:nyu . .
+ ---> eec2b9df265f
+Step 8/8 : CMD [ "python", "./run.py" ]
+ ---> Running in 75d65f5a7a81
+Removing intermediate container 75d65f5a7a81
+ ---> 9b115f4b1c23
+Successfully built 9b115f4b1c23
+Successfully tagged vickeywang/sample-time-app:latest
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+172.17.0.1 - - [24/Sep/2020 00:00:27] "GET / HTTP/1.1" 200 -
+172.17.0.1 - - [24/Sep/2020 00:00:32] "GET /path HTTP/1.1" 200 -
+^Cvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker lonLogin with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: vickeywang
+Password:
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker push vickeywang/sample-time-app:latest
+The push refers to repository [docker.io/vickeywang/sample-time-app]
+eeb7b6e7ad84: Pushed                                                               64c0eb8351fd: Pushed                                                               5ef8a49496f6: Pushed                                                               7566ceabd811: Pushed                                                               14b79b87fb14: Pushed                                                               95d78f868723: Mounted from library/python                                          493fa57d210f: Mounted from library/python                                          5aed5e63d645: Mounted from library/python                                          97be79495d2a: Mounted from library/python                                          a995c5106335: Mounted from library/python                                          17bdf5e22660: Mounted from library/python                                          d37096232ed8: Mounted from library/python                                          6add0d2b5482: Mounted from library/python                                          4ef54afed780: Mounted from library/python
+latest: digest: sha256:c02c1c7f330ae53277167ad8171687016773d1b8d931df0b46e0c9f2d1e90c1b size: 3259
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl expose deployment/sample-time-app --type="NodePort"--port 8080
+kubectl: command not found
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sodu kubectl expose deployment/sample-time-app --type="NodePort"--port 8080
+sodu: command not found
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl cluster-info
+kubectl: command not found
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 41.0M  100 41.0M    0     0  38.4M      0  0:00:01  0:00:01 --:--:-- 38.4M
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ chmod +x ./kubectl
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo mv ./kubectl /usr/local/bin/kubectl
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl cluster-info
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl version
+Client Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.2", GitCommit:"f5743093fd1c663cb0cbc89748f730662345d44d", GitTreeState:"clean", BuildDate:"2020-09-16T13:41:02Z", GoVersion:"go1.15", Compiler:"gc", Platform:"linux/amd64"}
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ y\
+> y
+yy: command not found
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ y
+y: command not found
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo mv ./kubectl /usr/local/bin/kubectl
+mv: cannot stat './kubectl': No such file or directory
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo kubectl version
+Client Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.2", GitCommit:"f5743093fd1c663cb0cbc89748f730662345d44d", GitTreeState:"clean", BuildDate:"2020-09-16T13:41:02Z", GoVersion:"go1.15", Compiler:"gc", Platform:"linux/amd64"}
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo mv ./kubectl /usr/local/bin/kubectl
+[sudo] password for vickeywang:
+mv: cannot stat './kubectl': No such file or directory
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ mkdir -p $HOME/.kube
+p -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/configvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+cp: cannot stat '/etc/kubernetes/admin.conf': No such file or directory
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+chown: cannot access '/home/vickeywang/.kube/config': No such file or directory
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$  export KUBECONFIG=/etc/kubernetes/admin.conf
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl verision
+Error: unknown command "verision" for "kubectl"
+
+Did you mean this?
+        version
+
+Run 'kubectl --help' for usage.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl --help
+kubectl controls the Kubernetes cluster manager.
+
+ Find more information at: https://kubernetes.io/docs/reference/kubectl/overview/
+
+Basic Commands (Beginner):
+  create        Create a resource from a file or from stdin.
+  expose        Take a replication controller, service, deployment or pod and expose it as a new Kubernetes Service
+  run           Run a particular image on the cluster
+  set           Set specific features on objects
+
+Basic Commands (Intermediate):
+  explain       Documentation of resources
+  get           Display one or many resources
+  edit          Edit a resource on the server
+  delete        Delete resources by filenames, stdin, resources and names, or by resources and label selector
+
+Deploy Commands:
+  rollout       Manage the rollout of a resource
+  scale         Set a new size for a Deployment, ReplicaSet or Replication Controller
+  autoscale     Auto-scale a Deployment, ReplicaSet, or ReplicationController
+
+Cluster Management Commands:
+  certificate   Modify certificate resources.
+  cluster-info  Display cluster info
+  top           Display Resource (CPU/Memory/Storage) usage.
+  cordon        Mark node as unschedulable
+  uncordon      Mark node as schedulable
+  drain         Drain node in preparation for maintenance
+  taint         Update the taints on one or more nodes
+
+Troubleshooting and Debugging Commands:
+  describe      Show details of a specific resource or group of resources
+  logs          Print the logs for a container in a pod
+  attach        Attach to a running container
+  exec          Execute a command in a container
+  port-forward  Forward one or more local ports to a pod
+  proxy         Run a proxy to the Kubernetes API server
+  cp            Copy files and directories to and from containers.
+  auth          Inspect authorization
+
+Advanced Commands:
+  diff          Diff live version against would-be applied version
+  apply         Apply a configuration to a resource by filename or stdin
+  patch         Update field(s) of a resource using strategic merge patch
+  replace       Replace a resource by filename or stdin
+  wait          Experimental: Wait for a specific condition on one or many resources.
+  convert       Convert config files between different API versions
+  kustomize     Build a kustomization target from a directory or a remote url.
+
+Settings Commands:
+  label         Update the labels on a resource
+  annotate      Update the annotations on a resource
+  completion    Output shell completion code for the specified shell (bash or zsh)
+
+Other Commands:
+  alpha         Commands for features in alpha
+  api-resources Print the supported API resources on the server
+  api-versions  Print the supported API versions on the server, in the form of "group/version"
+  config        Modify kubeconfig files
+  plugin        Provides utilities for interacting with plugins.
+  version       Print the client and server version information
+
+Usage:
+  kubectl [flags] [options]
+
+Use "kubectl <command> --help" for more information about a given command.
+Use "kubectl options" for a list of global command-line options (applies to all commands).
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl --version
+Error: unknown flag: --version
+See 'kubectl --help' for usage.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl version --short
+W0923 20:37:40.871578    4220 loader.go:223] Config not found: /etc/kubernetes/admin.conf
+Client Version: v1.19.2
+The connection to the server localhost:8080 was refused - did you specify the right host or port?
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ curl -LO "https:/vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"kubectl create deployment ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest
+W0923 20:42:11.794476    4231 loader.go:223] Config not found: /etc/kubernetes/admin.conf
+error: failed to create deployment: Post "http://localhost:8080/apis/apps/v1/namespaces/default/deployments?fieldManager=kubectl-create": dial tcp 127.0.0.1:8080: connect: connection refused
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest.
+W0923 20:42:23.650360    4242 loader.go:223] Config not found: /etc/kubernetes/admin.conf
+error: failed to create deployment: Post "http://localhost:8080/apis/apps/v1/namespaces/default/deployments?fieldManager=kubectl-create": dial tcp 127.0.0.1:8080: connect: connection refused
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ls
+Dockerfile  LICENSE  README.md  run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest.
+W0923 20:45:11.864172    4253 loader.go:223] Config not found: /etc/kubernetes/admin.conf
+error: failed to create deployment: Post "http://localhost:8080/apis/apps/v1/namespaces/default/deployments?fieldManager=kubectl-create": dial tcp 127.0.0.1:8080: connect: connection refused
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -p 8080:8080 -it vickeywang/sample-time-app
+
+ * Serving Flask app "run" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
+ * Restarting with stat
+
+ * Debugger is active!
+ * Debugger PIN: 318-306-619
+
+
+
+
+^Cvickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo docker run --name sample-time-app --rm -d -p 8080:8080 -it vickeywang/sample-time-app
+f999567cfa3c5ab301b7ab6cf3a96c5b9691ac9804be3f550eb06eef75af0efd
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest.
+W0923 20:46:03.259313    4444 loader.go:223] Config not found: /etc/kubernetes/admin.conf
+error: failed to create deployment: the server could not find the requested resource (post deployments.apps)
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest
+W0923 20:46:36.721948    4457 loader.go:223] Config not found: /etc/kubernetes/admin.conf
+error: failed to create deployment: the server could not find the requested resource (post deployments.apps)
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ls /etc/
+Display all 186 possibilities? (y or n)
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ history | less
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubectl version
+W0923 20:48:55.255306    4513 loader.go:223] Config not found: /etc/kubernetes/admin.conf
+Client Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.2", GitCommit:"f5743093fd1c663cb0cbc89748f730662345d44d", GitTreeState:"clean", BuildDate:"2020-09-16T13:41:02Z", GoVersion:"go1.15", Compiler:"gc", Platform:"linux/amd64"}
+Error from server (NotFound): the server could not find the requested resource
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo kubectl version
+Client Version: version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.2", GitCommit:"f5743093fd1c663cb0cbc89748f730662345d44d", GitTreeState:"clean", BuildDate:"2020-09-16T13:41:02Z", GoVersion:"go1.15", Compiler:"gc", Platform:"linux/amd64"}
+Error from server (NotFound): the server could not find the requested resource
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ^C
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest
+error: failed to create deployment: the server could not find the requested resource (post deployments.apps)
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest
+[sudo] password for vickeywang:
+error: failed to create deployment: the server could not find the requested resource (post deployments.apps)
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ brew upgrade kubernetes-cli
+
+Command 'brew' not found, did you mean:
+
+  command 'brec' from deb bplay (0.991-10build1)
+  command 'qbrew' from deb qbrew (0.4.1-8build1)
+
+Try: sudo apt install <deb name>
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo brew upgrade kubernetes-cli
+sudo: brew: command not found
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest
+error: failed to create deployment: the server could not find the requested resource (post deployments.apps)
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+OK
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo apt-get install curl
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+curl is already the newest version (7.68.0-1ubuntu2.2).
+0 upgraded, 0 newly installed, 0 to remove and 71 not upgraded.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+Get:1 http://security.ubuntu.com/ubuntu focal-security InRelease [107 kB]
+Get:2 https://download.docker.com/linux/ubuntu focal InRelease [36.2 kB]
+Get:3 http://security.ubuntu.com/ubuntu focal-security/main Translation-en [67.8 kB]
+Get:4 http://security.ubuntu.com/ubuntu focal-security/universe amd64 Packages [60.1 kB]
+Get:5 http://security.ubuntu.com/ubuntu focal-security/universe Translation-en [31.9 kB]
+Get:6 http://security.ubuntu.com/ubuntu focal-security/universe amd64 c-n-f Metadata [2544 B]
+Hit:7 http://archive.ubuntu.com/ubuntu focal InRelease
+Get:8 http://archive.ubuntu.com/ubuntu focal-updates InRelease [111 kB]
+Get:10 http://archive.ubuntu.com/ubuntu focal-backports InRelease [98.3 kB]
+Get:11 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 Packages [371 kB]
+Get:9 https://packages.cloud.google.com/apt kubernetes-xenial InRelease [8993 B]
+Get:12 https://packages.cloud.google.com/apt kubernetes-xenial/main amd64 Packages [40.7 kB]
+Get:13 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 c-n-f Metadata [9612 B]
+Get:14 http://archive.ubuntu.com/ubuntu focal-updates/restricted amd64 Packages [43.6 kB]
+Get:15 http://archive.ubuntu.com/ubuntu focal-updates/universe amd64 Packages [168 kB]
+Get:16 http://archive.ubuntu.com/ubuntu focal-updates/universe Translation-en [89.2 kB]
+Get:17 http://archive.ubuntu.com/ubuntu focal-updates/universe amd64 c-n-f Metadata [5668 B]
+Fetched 1252 kB in 1s (955 kB/s)
+Reading package lists... Done
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo apt-get install kubeadm kubelet kubectl
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  conntrack cri-tools ebtables kubernetes-cni socat
+Suggested packages:
+  nftables
+The following NEW packages will be installed:
+  conntrack cri-tools ebtables kubeadm kubectl kubelet kubernetes-cni socat
+0 upgraded, 8 newly installed, 0 to remove and 71 not upgraded.
+Need to get 68.5 MB of archives.
+After this operation, 292 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:5 http://archive.ubuntu.com/ubuntu focal/main amd64 conntrack amd64 1:1.4.5-2 [30.3 kB]
+Get:1 https://packages.cloud.google.com/apt kubernetes-xenial/main amd64 cri-tools amd64 1.13.0-01 [8775 kB]
+Get:7 http://archive.ubuntu.com/ubuntu focal/main amd64 ebtables amd64 2.0.11-3build1 [80.3 kB]
+Get:8 http://archive.ubuntu.com/ubuntu focal/main amd64 socat amd64 1.7.3.3-2 [323 kB]
+Get:2 https://packages.cloud.google.com/apt kubernetes-xenial/main amd64 kubernetes-cni amd64 0.8.7-00 [25.0 MB]
+Get:3 https://packages.cloud.google.com/apt kubernetes-xenial/main amd64 kubelet amd64 1.19.2-00 [18.2 MB]
+Get:4 https://packages.cloud.google.com/apt kubernetes-xenial/main amd64 kubectl amd64 1.19.2-00 [8349 kB]
+Get:6 https://packages.cloud.google.com/apt kubernetes-xenial/main amd64 kubeadm amd64 1.19.2-00 [7758 kB]
+Fetched 68.5 MB in 4s (18.2 MB/s)
+Selecting previously unselected package conntrack.
+(Reading database ... 39505 files and directories currently installed.)
+Preparing to unpack .../0-conntrack_1%3a1.4.5-2_amd64.deb ...
+Unpacking conntrack (1:1.4.5-2) ...
+Selecting previously unselected package cri-tools.
+Preparing to unpack .../1-cri-tools_1.13.0-01_amd64.deb ...
+Unpacking cri-tools (1.13.0-01) ...
+Selecting previously unselected package ebtables.
+Preparing to unpack .../2-ebtables_2.0.11-3build1_amd64.deb ...
+Unpacking ebtables (2.0.11-3build1) ...
+Selecting previously unselected package kubernetes-cni.
+Preparing to unpack .../3-kubernetes-cni_0.8.7-00_amd64.deb ...
+Unpacking kubernetes-cni (0.8.7-00) ...
+Selecting previously unselected package socat.
+Preparing to unpack .../4-socat_1.7.3.3-2_amd64.deb ...
+Unpacking socat (1.7.3.3-2) ...
+Selecting previously unselected package kubelet.
+Preparing to unpack .../5-kubelet_1.19.2-00_amd64.deb ...
+Unpacking kubelet (1.19.2-00) ...
+Selecting previously unselected package kubectl.
+Preparing to unpack .../6-kubectl_1.19.2-00_amd64.deb ...
+Unpacking kubectl (1.19.2-00) ...
+Selecting previously unselected package kubeadm.
+Preparing to unpack .../7-kubeadm_1.19.2-00_amd64.deb ...
+Unpacking kubeadm (1.19.2-00) ...
+Setting up conntrack (1:1.4.5-2) ...
+Setting up kubectl (1.19.2-00) ...
+Setting up ebtables (2.0.11-3build1) ...
+Setting up socat (1.7.3.3-2) ...
+Setting up cri-tools (1.13.0-01) ...
+Setting up kubernetes-cni (0.8.7-00) ...
+Setting up kubelet (1.19.2-00) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/kubelet.service → /lib/systemd/system/kubelet.service.
+Setting up kubeadm (1.19.2-00) ...
+Processing triggers for man-db (2.9.1-1) ...
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo apt-mark hold kubeadm kubelet kubectl
+kubeadm set on hold.
+kubelet set on hold.
+kubectl set on hold.
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ kubeadm version
+kubeadm version: &version.Info{Major:"1", Minor:"19", GitVersion:"v1.19.2", GitCommit:"f5743093fd1c663cb0cbc89748f730662345d44d", GitTreeState:"clean", BuildDate:"2020-09-16T13:38:53Z", GoVersion:"go1.15", Compiler:"gc", Platform:"linux/amd64"}
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo swapoff –a
+swapoff: –a: swapoff failed: No such file or directory
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ls -al /usr/sbin/swapoff
+-rwxr-xr-x 1 root root 22760 Apr  2 11:29 /usr/sbin/swapoff
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo swapoff –a
+swapoff: –a: swapoff failed: No such file or directory
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ls -al /usr/sbin/swapoff -a
+-rwxr-xr-x 1 root root 22760 Apr  2 11:29 /usr/sbin/swapoff
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo hostnamectl set-hostname worker01
+System has not been booted with systemd as init system (PID 1). Can't operate.
+Failed to create bus connection: Host is down
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo service
+Usage: service < option > | --status-all | [ service_name [ command | --full-restart ] ]
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo hostnamectl set-hostname worker01
+System has not been booted with systemd as init system (PID 1). Can't operate.
+Failed to create bus connection: Host is down
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ sudo kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest
+error: failed to create deployment: the server could not find the requested resource (post deployments.apps)
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ curl -sL https://ibm.biz/idt-installer | bash
+[main] --==[ IBM Cloud Developer Tools for Linux/MacOS - Installer, v1.2.3 ]==--
+[install] Starting Update...
+[install] Note: You may be prompted for your 'sudo' password during install.
+[install_deps_with_apt_get] Checking for and updating 'apt-get' support on Linux
+
+Get:1 http://security.ubuntu.com/ubuntu focal-security InRelease [107 kB]
+Get:2 https://download.docker.com/linux/ubuntu focal InRelease [36.2 kB]
+Get:4 http://ppa.launchpad.net/git-core/ppa/ubuntu focal InRelease [23.8 kB]
+Hit:5 http://archive.ubuntu.com/ubuntu focal InRelease
+Hit:6 http://archive.ubuntu.com/ubuntu focal-updates InRelease
+Hit:3 https://packages.cloud.google.com/apt kubernetes-xenial InRelease
+Get:7 http://archive.ubuntu.com/ubuntu focal-backports InRelease [98.3 kB]
+Get:8 http://ppa.launchpad.net/git-core/ppa/ubuntu focal/main amd64 Packages [4368 B]
+Get:9 http://ppa.launchpad.net/git-core/ppa/ubuntu focal/main Translation-en [2252 B]
+Fetched 272 kB in 1s (272 kB/s)
+
+Reading package lists... Done
+Hit:1 http://archive.ubuntu.com/ubuntu focal InRelease
+Hit:2 http://archive.ubuntu.com/ubuntu focal-updates InRelease
+Get:3 http://archive.ubuntu.com/ubuntu focal-backports InRelease [98.3 kB]
+Get:5 https://download.docker.com/linux/ubuntu focal InRelease [36.2 kB]
+Get:6 http://security.ubuntu.com/ubuntu focal-security InRelease [107 kB]
+Hit:7 http://ppa.launchpad.net/git-core/ppa/ubuntu focal InRelease
+Get:4 https://packages.cloud.google.com/apt kubernetes-xenial InRelease [8993 B]
+Fetched 250 kB in 1s (257 kB/s)
+Reading package lists... Done
+[install_deps_with_apt_get] Installing/updating external dependency: curl
+[install_deps_with_apt_get] Installing/updating external dependency: git
+[install_docker] Installing/updating external dependency: docker
+Client:
+ Version:           19.03.8
+ API version:       1.40
+ Go version:        go1.13.8
+ Git commit:        afacb8b7f0
+ Built:             Tue Jun 23 22:26:12 2020
+ OS/Arch:           linux/amd64
+ Experimental:      false
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.40/version: dial unix /var/run/docker.sock: connect: permission denied
+[install_deps_with_apt_get] Installing/updating external dependency: kubectl
+[install_deps_with_apt_get] Installing/updating external dependency: helm
+Downloading https://get.helm.sh/helm-v2.16.12-linux-amd64.tar.gz
+Preparing to install helm and tiller into /usr/local/bin
+helm installed into /usr/local/bin/helm
+tiller installed into /usr/local/bin/tiller
+Run 'helm init' to configure helm.
+[install_deps_with_apt_get] Please review any setup requirements for 'helm' from: https://github.com/kubernetes/helm/blob/master/docs/install.md
+[install_ibmcloud] Installing IBM Cloud 'ibmcloud' CLI for platform 'Linux'...
+[install_ibmcloud] Downloading and installing IBM Cloud 'ibmcloud' CLI from: https://clis.cloud.ibm.com/install/linux
+Current platform is linux64. Downloading corresponding IBM Cloud CLI...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   111  100   111    0     0    377      0 --:--:-- --:--:-- --:--:--   377
+100 15.4M  100 15.4M    0     0  9023k      0  0:00:01  0:00:01 --:--:-- 21.6M
+Download complete. Executing installer...
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100    40  100    40    0     0    121      0 --:--:-- --:--:-- --:--:--   121
+Bluemix_CLI/
+Bluemix_CLI/bin/
+Bluemix_CLI/bin/ibmcloud
+Bluemix_CLI/bin/ibmcloud.sig
+Bluemix_CLI/bin/ibmcloud-analytics
+Bluemix_CLI/bin/ibmcloud-analytics.sig
+Bluemix_CLI/bin/NOTICE
+Bluemix_CLI/bin/LICENSE
+Bluemix_CLI/bin/CF_CLI_Notices.txt
+Bluemix_CLI/bin/CF_CLI_SLC_Notices.txt
+Bluemix_CLI/autocomplete/
+Bluemix_CLI/autocomplete/bash_autocomplete
+Bluemix_CLI/autocomplete/zsh_autocomplete
+Bluemix_CLI/install
+Bluemix_CLI/uninstall
+Bluemix_CLI/install_bluemix_cli
+Install complete.
+[install_ibmcloud] IBM Cloud 'ibmcloud' CLI install finished.
+[install_ibmcloud] Running 'ibmcloud --version'...
+ibmcloud version 1.2.2+5538d5a-2020-09-21T09:32:24+00:00
+[install_plugins] Installing/updating IBM Cloud CLI plugins...
+[install_plugins] Checking status of plugin: cloud-functions
+[install_plugins] Installing plugin 'cloud-functions'
+Looking up 'cloud-functions' from repository 'IBM Cloud'...
+Plug-in 'cloud-functions/wsk/functions/fn 1.0.46' found in repository 'IBM Cloud'
+Attempting to download the binary file...
+ 13.76 MiB / 13.76 MiB [===============================================] 100.00% 0s14425970 bytes downloaded
+Installing binary...
+OK
+Plug-in 'cloud-functions 1.0.46' was successfully installed into /home/vickeywang/.bluemix/plugins/cloud-functions. Use 'ibmcloud plugin show cloud-functions' to show its details.
+[install_plugins] Checking status of plugin: cloud-object-storage
+[install_plugins] Installing plugin 'cloud-object-storage'
+Looking up 'cloud-object-storage' from repository 'IBM Cloud'...
+Plug-in 'cloud-object-storage 1.2.0' found in repository 'IBM Cloud'
+Attempting to download the binary file...
+ 13.18 MiB / 13.18 MiB [===============================================] 100.00% 0s13824000 bytes downloaded
+Installing binary...
+OK
+Plug-in 'cloud-object-storage 1.2.0' was successfully installed into /home/vickeywang/.bluemix/plugins/cloud-object-storage. Use 'ibmcloud plugin show cloud-object-storage' to show its details.
+[install_plugins] Checking status of plugin: container-registry
+[install_plugins] Installing plugin 'container-registry'
+Looking up 'container-registry' from repository 'IBM Cloud'...
+Plug-in 'container-registry 0.1.494' found in repository 'IBM Cloud'
+Attempting to download the binary file...
+ 28.55 MiB / 28.55 MiB [===============================================] 100.00% 0s29937664 bytes downloaded
+Installing binary...
+OK
+Plug-in 'container-registry 0.1.494' was successfully installed into /home/vickeywang/.bluemix/plugins/container-registry. Use 'ibmcloud plugin show container-registry' to show its details.
+[install_plugins] Checking status of plugin: container-service
+[install_plugins] Installing plugin 'container-service'
+Looking up 'container-service' from repository 'IBM Cloud'...
+Plug-in 'container-service/kubernetes-service 1.0.157' found in repository 'IBM Cloud'
+Attempting to download the binary file...
+ 19.61 MiB / 19.61 MiB [===============================================] 100.00% 1s20557824 bytes downloaded
+Installing binary...
+OK
+Plug-in 'container-service 1.0.157' was successfully installed into /home/vickeywang/.bluemix/plugins/container-service. Use 'ibmcloud plugin show container-service' to show its details.
+[install_plugins] Running 'ibmcloud plugin list'...
+Listing installed plug-ins...
+
+Plugin Name                            Version   Status
+cloud-object-storage                   1.2.0
+container-registry                     0.1.494
+container-service/kubernetes-service   1.0.157
+cloud-functions/wsk/functions/fn       1.0.46
+
+[install_plugins] Finished installing/updating plugins
+[env_setup] WARN: Please restart your shell to enable 'ic' alias for ibmcloud!
+[install] Install finished.
+[main] --==[ Total time: 46 seconds ]==--
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ibmcloud login -a cloud.ibm.com -r us-south -g mycluster
+API endpoint: https://cloud.ibm.com
+
+Email> xw2098@nyu.edu
+
+Password>
+Authenticating...
+Credentials were rejected.
+Code: BXNIM0602E, message: The credentials you entered for the user 'xw2098@nyu.edu' are incorrect
+
+Password> vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ibmcloud login -a cloud.ibm.com -r us-south -g mycluster
+API endpoint: https://cloud.ibm.com
+
+Email> xxwangxiaoxuan@gmail.com
+
+Password>
+Authenticating...
+Credentials were rejected.
+Code: BXNIM0602E, message: The credentials you entered for the user 'xxwangxiaoxuan@gmail.com' are incorrect
+
+Password> vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ibmcloud login -a cloud.ibm.com -r us-south -g mycluster
+API endpoint: https://cloud.ibm.com
+
+Email> xw2098@nyu.edu
+
+Password>
+Authenticating...
+OK
+
+Targeted account Xiaoxuan Wang's Account (88a3b7bde11741c98b27f1c650ab7ff4)
+
+
+API endpoint:      https://cloud.ibm.com
+Region:
+User:              xw2098@nyu.edu
+Account:           Xiaoxuan Wang's Account (88a3b7bde11741c98b27f1c650ab7ff4)
+Resource group:    No resource group targeted, use 'ibmcloud target -g RESOURCE_GROUP'
+CF API endpoint:
+Org:
+Space:
+
+We'd like to collect usage statistics to help improve the IBM Cloud CLI.
+This data will never be shared outside IBM.
+To learn more, see the IBM Privacy Policy: https://www.ibm.com/privacy
+You can enable or disable usage data collection by running 'ibmcloud config --usage-stats-collect [true | false]'
+
+Do you want to send usage statistics to IBM? [y/n]> y
+FAILED
+Could not get resource group:
+Resource group 'mycluster' was not found. Use 'ibmcloud resource groups' to list all available resource groups.
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ibmcloud resource groups
+Retrieving all resource groups under account 88a3b7bde11741c98b27f1c650ab7ff4 as xw2098@nyu.edu...
+OK
+Name      ID                                 Default Group   State
+Default   4ea2100ea95e451cb48e82cfd2f799d9   true            ACTIVE
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ibmcloud ks cluster config --cluster btlvvq5f08s2s24u71ng
+Kubernetes removed deprecated APIs, which impacts clusters that run Kubernetes version 1.16, OpenShift version 4.4, or later. For more information, see <http://ibm.biz/k8s-1-16-apis>
+
+The Kubernetes Ingress controller image is now supported for Ingress ALBs as a beta release. During the beta, you can convert existing ALBs or create ALBs to run the Kubernetes Ingress image. On 30 September 2020, all new ALBs run the Kubernetes Ingress image by default. More info: <http://ibm.biz/kube-ingress>
+
+FAILED
+The cluster is not fully deployed yet. Wait a few minutes, then try again. (E0030)
+
+Incident ID: 75f81f57-ac09-4b82-a4c6-9794de468e33
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ibmcloud login -a cloud.ibm.com -r eu-de -g mycluster-free
+API endpoint: https://cloud.ibm.com
+
+Email> xw2098@nyu.edu
+
+Password>
+Authenticating...
+OK
+
+Targeted account Xiaoxuan Wang's Account (88a3b7bde11741c98b27f1c650ab7ff4)
+
+
+API endpoint:      https://cloud.ibm.com
+Region:
+User:              xw2098@nyu.edu
+Account:           Xiaoxuan Wang's Account (88a3b7bde11741c98b27f1c650ab7ff4)
+Resource group:    No resource group targeted, use 'ibmcloud target -g RESOURCE_GROUP'
+CF API endpoint:
+Org:
+Space:
+FAILED
+Could not get resource group:
+Resource group 'mycluster-free' was not found. Use 'ibmcloud resource groups' to list all available resource groups.
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ibmcloud ks cluster config --cluster btlvvq5f08s2s24u71ng
+FAILED
+The cluster is not fully deployed yet. Wait a few minutes, then try again. (E0030)
+
+Incident ID: 5ec7d2bd-fed3-4b24-a772-5be6f8029db8
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ history | less
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ ls
+Dockerfile  LICENSE  README.md  run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git status
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   run.py
+
+no changes added to commit (use "git add" and/or "git commit -a")
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git add run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git diff
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git commit -m 'chg'
+
+*** Please tell me who you are.
+
+Run
+
+  git config --global user.email "you@example.com"
+  git config --global user.name "Your Name"
+
+to set your account's default identity.
+Omit --global to set the identity only in this repository.
+
+fatal: empty ident name (for <vickeywang@LAPTOP-4BS0FVSB.localdomain>) not allowed
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git config --hlobal user.email "xw2098@nyu.edu"
+error: unknown option `hlobal'
+usage: git config [<options>]
+
+Config file location
+    --global              use global config file
+    --system              use system config file
+    --local               use repository config file
+    --worktree            use per-worktree config file
+    -f, --file <file>     use given config file
+    --blob <blob-id>      read config from given blob object
+
+Action
+    --get                 get value: name [value-regex]
+    --get-all             get all values: key [value-regex]
+    --get-regexp          get values for regexp: name-regex [value-regex]
+    --get-urlmatch        get value specific for the URL: section[.var] URL
+    --replace-all         replace all matching variables: name value [value_regex]
+    --add                 add a new variable: name value
+    --unset               remove a variable: name [value-regex]
+    --unset-all           remove all matches: name [value-regex]
+    --rename-section      rename section: old-name new-name
+    --remove-section      remove a section: name
+    -l, --list            list all
+    -e, --edit            open an editor
+    --get-color           find the color configured: slot [default]
+    --get-colorbool       find the color setting: slot [stdout-is-tty]
+
+Type
+    -t, --type <>         value is given this type
+    --bool                value is "true" or "false"
+    --int                 value is decimal number
+    --bool-or-int         value is --bool or --int
+    --path                value is a path (file or directory name)
+    --expiry-date         value is an expiry date
+
+Other
+    -z, --null            terminate values with NUL byte
+    --name-only           show variable names only
+    --includes            respect include directives on lookup
+    --show-origin         show origin of config (file, standard input, blob, command line)
+    --default <value>     with --get, use default value when missing entry
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git config --global user.email "xw2098@nyu.edu"
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git config --global user.name "vickeywangvw"
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git commit -m "cg=hg"
+[master f4c62b0] cg=hg
+ 1 file changed, 57 insertions(+), 5 deletions(-)
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git diff
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ less run.py
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git add Dockerfile
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ git status
+On branch master
+Your branch is ahead of 'origin/master' by 1 commit.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ pwd
+/home/vickeywang/nyu-cs2262-001-fa20/sample_time_app
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ pwd
+/home/vickeywang/nyu-cs2262-001-fa20/sample_time_app
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20/sample_time_app$ cd ..
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ ls
+README.md  sample_time_app
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ ls
+README.md  sample_time_app
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ script -f log.txt
+Script started, file is log.txt
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubetcl get services
+kubetcl: command not found
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubectl get services
+W0923 22:36:23.085898    8815 loader.go:223] Config not found: /etc/kubernetes/admin.conf
+error: the server doesn't have a resource type "services"
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ ibmcloud resource groups
+Retrieving all resource groups under account 88a3b7bde11741c98b27f1c650ab7ff4 as xw2098@nyu.edu...
+OK
+Name      ID                                 Default Group   State
+Default   4ea2100ea95e451cb48e82cfd2f799d9   true            ACTIVE
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ ibmcloud login -a cloud.ibm.com -r us-south -g mycluster-free
+API endpoint: https://cloud.ibm.com
+
+Email> xw2098@nyu.edu
+
+Password>
+Authenticating...
+OK
+
+Targeted account Xiaoxuan Wang's Account (88a3b7bde11741c98b27f1c650ab7ff4)
+
+
+API endpoint:      https://cloud.ibm.com
+Region:
+User:              xw2098@nyu.edu
+Account:           Xiaoxuan Wang's Account (88a3b7bde11741c98b27f1c650ab7ff4)
+Resource group:    No resource group targeted, use 'ibmcloud target -g RESOURCE_GROUP'
+CF API endpoint:
+Org:
+Space:
+FAILED
+Could not get resource group:
+Resource group 'mycluster-free' was not found. Use 'ibmcloud resource groups' to list all available resource groups.
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ ibmcloud target -g RESOURCE_GROUP
+FAILED
+Could not get resource group:
+Resource group 'RESOURCE_GROUP' was not found. Use 'ibmcloud resource groups' to list all available resource groups.
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ ibm resource groups
+
+Command 'ibm' not found, did you mean:
+
+  command 'ibam' from deb ibam (1:0.5.2-2.1ubuntu3)
+  command 'cbm' from deb cbm (0.2-5)
+
+Try: sudo apt install <deb name>
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ ibmcloud resource groups
+Retrieving all resource groups under account 88a3b7bde11741c98b27f1c650ab7ff4 as xw2098@nyu.edu...
+OK
+Name      ID                                 Default Group   State
+Default   4ea2100ea95e451cb48e82cfd2f799d9   true            ACTIVE
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ ibmcloud login -a cloud.ibm.com -r us-south -g Default
+API endpoint: https://cloud.ibm.com
+
+Email> xw2098@nyu.edu
+
+Password>
+Authenticating...
+OK
+
+Targeted account Xiaoxuan Wang's Account (88a3b7bde11741c98b27f1c650ab7ff4)
+
+Targeted resource group Default
+
+Targeted region us-south
+
+
+API endpoint:      https://cloud.ibm.com
+Region:            us-south
+User:              xw2098@nyu.edu
+Account:           Xiaoxuan Wang's Account (88a3b7bde11741c98b27f1c650ab7ff4)
+Resource group:    Default
+CF API endpoint:
+Org:
+Space:
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ ibmcloud ks cluster config --cluster btlvvq5f08s2s24u71ng
+
+OK
+The configuration for btlvvq5f08s2s24u71ng was downloaded successfully.
+
+FAILED
+Error merging new kubeconfig into the current kubeconfig file: open /etc/kubernetes/admin.conf: permission denied
+
+You can manually use the new kubeconfig file: /home/vickeywang/.bluemix/plugins/container-service/clusters/mycluster-free-btlvvq5f08s2s24u71ng/kube-config-aaa00-mycluster-free.yml
+
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubectl config current-context
+W0923 22:44:43.236363    9162 loader.go:223] Config not found: /etc/kubernetes/admin.conf
+error: current-context is not set
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ export KUBECONFIG=/Users/xiwanting/.bluemix/plugins/container-service/clusters/bp5f2dmd0e5m32l41ig0/kube-config-hou02-mycluster.yml
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubectl version --short
+W0923 22:45:45.620679    9173 loader.go:223] Config not found: /Users/xiwanting/.bluemix/plugins/container-service/clusters/bp5f2dmd0e5m32l41ig0/kube-config-hou02-mycluster.yml
+Client Version: v1.19.2
+Error from server (NotFound): the server could not find the requested resource
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ export KUBECONFIG=/home/vickeywan
+g/.bluemix/plugins/container-service/clusters/mycluster-free-btlvvq5f08s2s24u71ng/k
+ube-config-aaa00-mycluster-free.yml
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubectl version --short
+Client Version: v1.19.2
+Server Version: v1.17.12+IKS
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest
+ment.apps/sample-time-app created
+deployment.apps/sample-time-app created
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ deployment.apps/sample-time-app created
+bash: deployment.apps/sample-time-app: No such file or directory
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubectl create deployment sample-time-app --image=docker.io/vickeywang/sample-time-app:latest
+error: failed to create deployment: deployments.apps "sample-time-app" already exists
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubectl delete deployment/simple-deployment svc/simple-service
+Error from server (NotFound): deployments.apps "simple-deployment" not found
+Error from server (NotFound): services "simple-service" not found
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubectl --help
+kubectl controls the Kubernetes cluster manager.
+
+ Find more information at:
+https://kubernetes.io/docs/reference/kubectl/overview/
+
+Basic Commands (Beginner):
+  create        Create a resource from a file or from stdin.
+  expose        Take a replication controller, service, deployment or pod and
+expose it as a new Kubernetes Service
+  run           Run a particular image on the cluster
+  set           Set specific features on objects
+
+Basic Commands (Intermediate):
+  explain       Documentation of resources
+  get           Display one or many resources
+  edit          Edit a resource on the server
+  delete        Delete resources by filenames, stdin, resources and names, or by
+resources and label selector
+
+Deploy Commands:
+  rollout       Manage the rollout of a resource
+  scale         Set a new size for a Deployment, ReplicaSet or Replication
+Controller
+  autoscale     Auto-scale a Deployment, ReplicaSet, or ReplicationController
+
+Cluster Management Commands:
+  certificate   Modify certificate resources.
+  cluster-info  Display cluster info
+  top           Display Resource (CPU/Memory/Storage) usage.
+  cordon        Mark node as unschedulable
+  uncordon      Mark node as schedulable
+  drain         Drain node in preparation for maintenance
+  taint         Update the taints on one or more nodes
+
+Troubleshooting and Debugging Commands:
+  describe      Show details of a specific resource or group of resources
+  logs          Print the logs for a container in a pod
+  attach        Attach to a running container
+  exec          Execute a command in a container
+  port-forward  Forward one or more local ports to a pod
+  proxy         Run a proxy to the Kubernetes API server
+  cp            Copy files and directories to and from containers.
+  auth          Inspect authorization
+
+Advanced Commands:
+  diff          Diff live version against would-be applied version
+  apply         Apply a configuration to a resource by filename or stdin
+  patch         Update field(s) of a resource using strategic merge patch
+  replace       Replace a resource by filename or stdin
+  wait          Experimental: Wait for a specific condition on one or many
+resources.
+  convert       Convert config files between different API versions
+  kustomize     Build a kustomization target from a directory or a remote url.
+
+Settings Commands:
+  label         Update the labels on a resource
+  annotate      Update the annotations on a resource
+  completion    Output shell completion code for the specified shell (bash or
+zsh)
+
+Other Commands:
+  alpha         Commands for features in alpha
+  api-resources Print the supported API resources on the server
+  api-versions  Print the supported API versions on the server, in the form of
+"group/version"
+  config        Modify kubeconfig files
+  plugin        Provides utilities for interacting with plugins.
+  version       Print the client and server version information
+
+Usage:
+  kubectl [flags] [options]
+
+Use "kubectl <command> --help" for more information about a given command.
+Use "kubectl options" for a list of global command-line options (applies to all
+commands).
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubectl expose deployment/sample-time-app --type="NodePort" --port 8080
+
+service/sample-time-app exposed
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$ kubectl get services
+NAME              TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+kubernetes        ClusterIP   172.21.0.1      <none>        443/TCP          35m
+sample-time-app   NodePort    172.21.210.99   <none>        8080:30439/TCP   28s
+vickeywang@LAPTOP-4BS0FVSB:~/nyu-cs2262-001-fa20$
